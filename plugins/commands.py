@@ -86,12 +86,12 @@ async def start(c, m, cb=False):
         if msg.empty:
             return await send_msg.edit(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
         
-        caption = f"{msg.caption.markdown}" if msg.caption else ""
+        caption = f"_✏ Caption:__ {msg.caption.markdown}" if msg.caption else ""
         as_uploadername = (await get_data(chat_id)).up_name
         
         if as_uploadername:
-           uploader_details = await get_updata(m.command[1])
-           caption = f"{uploader_details}\n__✏ Caption:__ {caption}"
+           uploader_details = await get_updata(str(m.command[1]))
+           caption = f"{uploader_details}\n_{caption}"
         await send_msg.delete()
         await msg.copy(m.from_user.id, caption=caption)
 
