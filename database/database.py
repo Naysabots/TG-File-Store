@@ -63,8 +63,8 @@ class CDatabase(BASE):
     msg_updata = Column(String)
 
     def __init__(self, msg_cal,msg_updata):
-        self.msg_cal = msg_cal
-        self.msg_updata = msg_updata
+        self.msg_cal = str(msg_cal)
+        self.msg_updata = str(msg_updata)
 
 CDatabase.__table__.create(checkfirst=True)
 
