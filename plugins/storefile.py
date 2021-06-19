@@ -3,6 +3,7 @@ import urllib
 from .commands import encode_string
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from database.database import *
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 
 
@@ -11,17 +12,10 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
     send_message = await m.reply_text("**Processing...**", quote=True)
-    if m.document:
-       media = m.document
-    if m.video:
-       media = m.video
-    if m.audio:
-       media = m.audio
-    if m.photo:
-       media = m.photo
-
+    media = m.document or m.video or m.audio or m.photo
     # text
     text = ""
+    uploader_data = ""
     if not m.photo:
         text = "--**🗃️ File Details:**--\n\n\n"
         text += f"📂 __File Name:__ `{media.file_name}`\n\n" if media.file_name else ""
@@ -33,13 +27,14 @@ async def storefile(c, m):
                 text += f"🎵 __Title:__ `{media.title}`\n\n" if media.title else ""
                 text += f"🎙 __Performer:__ `{media.performer}`\n\n" if media.performer else ""
     text += f"__✏ Caption:__ `{m.caption}`\n\n" if m.caption else ""
-    text += "**--Uploader Details:--**\n\n\n"
-    text += f"__🦚 First Name:__ `{m.from_user.first_name}`\n\n"
-    text += f"__🐧 Last Name:__ `{m.from_user.last_name}`\n\n" if m.from_user.last_name else ""
-    text += f"__👁 User Name:__ @{m.from_user.username}\n\n" if m.from_user.username else ""
-    text += f"__👤 User Id:__ `{m.from_user.id}`\n\n"
-    text += f"__💬 DC ID:__ {m.from_user.dc_id}\n\n" if m.from_user.dc_id else ""
-
+    uploader_data += "**--Uploader Details:--**\n\n\n"
+    uploader_data += f"__🦚 First Name:__ `{m.from_user.first_name}`\n\n"
+    uploader_data += f"__🐧 Last Name:__ `{m.from_user.last_name}`\n\n" if m.from_user.last_name else ""
+    uploader_data += f"__👁 User Name:__ @{m.from_user.username}\n\n" if m.from_user.username else ""
+    uploader_data += f"__👤 User Id:__ `{m.from_user.id}`\n\n"
+    uploader_data += f"__💬 DC ID:__ {m.from_user.dc_id}\n\n" if m.from_user.dc_id else ""
+    text += uploader_data
+    
     # if databacase channel exist forwarding message to channel
     if DB_CHANNEL_ID:
         msg = await m.copy(int(DB_CHANNEL_ID))
@@ -51,7 +46,8 @@ async def storefile(c, m):
     url = f"https://t.me/{bot.username}?start={base64_string}"
     txt = urllib.parse.quote(text.replace('--', ''))
     share_url = f"tg://share?url={txt}File%20Link%20👉%20{url}"
-
+    # save uploader info to dB with encoded base string
+    await add_updata(base64_string,uploader_data)
     # making buttons
     buttons = [[
         InlineKeyboardButton(text="Open Url 🔗", url=url),
@@ -70,18 +66,10 @@ async def storefile(c, m):
 
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.edited)
 async def storefile_channel(c, m):
-
-    if m.document:
-       media = m.document
-    if m.video:
-       media = m.video
-    if m.audio:
-       media = m.audio
-    if m.photo:
-       media = m.photo
-
+    media = m.document or m.video or m.audio or m.photo
     # text
     text = ""
+    uploader_data = ""
     if not m.photo:
         text = "**🗃️ File Details:**\n\n\n"
         text += f"📂 __File Name:__ `{media.file_name}`\n\n" if media.file_name else ""
@@ -93,12 +81,14 @@ async def storefile_channel(c, m):
                 text += f"🎵 __Title:__ `{media.title}`\n\n" if media.title else ""
                 text += f"🎙 __Performer:__ `{media.performer}`\n\n" if media.performer else ""
     text += f"__✏ Caption:__ `{m.caption}`\n\n"
-    text += "**Uploader Details:**\n\n\n"
-    text += f"__📢 Channel Name:__ `{m.chat.title}`\n\n"
-    text += f"__🗣 User Name:__ @{m.chat.username}\n\n" if m.chat.username else ""
-    text += f"__👤 Channel Id:__ `{m.chat.id}`\n\n"
-    text += f"__💬 DC ID:__ {m.chat.dc_id}\n\n" if m.chat.dc_id else ""
-    text += f"__👁 Members Count:__ {m.chat.members_count}\n\n" if m.chat.members_count else ""
+    uploader_data += "**Uploader Details:**\n\n\n"
+    uploader_data += f"__📢 Channel Name:__ `{m.chat.title}`\n\n"
+    uploader_data += f"__🗣 User Name:__ @{m.chat.username}\n\n" if m.chat.username else ""
+    uploader_data += f"__👤 Channel Id:__ `{m.chat.id}`\n\n"
+    uploader_data += f"__💬 DC ID:__ {m.chat.dc_id}\n\n" if m.chat.dc_id else ""
+    uploader_data += f"__👁 Members Count:__ {m.chat.members_count}\n\n" if m.chat.members_count else ""
+    text += uploader_data
+
 
     # if databacase channel exist forwarding message to channel
     if DB_CHANNEL_ID:
@@ -111,6 +101,8 @@ async def storefile_channel(c, m):
     url = f"https://t.me/{bot.username}?start={base64_string}"
     txt = urllib.parse.quote(text.replace('--', ''))
     share_url = f"tg://share?url={txt}File%20Link%20👉%20{url}"
+    # save uploader info to dB with encoded base string
+    await add_updata(base64_string,uploader_data)
 
     # making buttons
     buttons = [[
