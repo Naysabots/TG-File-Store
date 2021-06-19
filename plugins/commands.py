@@ -163,6 +163,18 @@ async def batch(c, m):
     await message.edit(text=url)
 
 
+@Client.on_message(filters.command('mode') & filters.incoming & filters.private)
+async def mode(c,m):
+    caption_mode = (await get_data(m.from_user.id)).up_name
+    if caption_mode:
+       await update_as_name(m.from_user.id, False)
+       text = "Uploader Details in Caption: **Disabled ❌**"
+    else:
+       await update_as_name(m.from_user.id, True)
+       text = "Uploader Details in Caption: **Enabled ✔️**"
+    await m.reply_text(text, quote=True)
+
+
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
     string_bytes = base64.b64decode(base64_bytes) 
