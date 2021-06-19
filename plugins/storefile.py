@@ -47,7 +47,7 @@ async def storefile(c, m):
     txt = urllib.parse.quote(text.replace('--', ''))
     share_url = f"tg://share?url={txt}File%20Link%20👉%20{url}"
     # save uploader info to dB with encoded base string
-    await add_updata(base64_string,uploader_data)
+    await add_updata(str(base64_string),str(uploader_data))
     # making buttons
     buttons = [[
         InlineKeyboardButton(text="Open Url 🔗", url=url),
@@ -102,7 +102,7 @@ async def storefile_channel(c, m):
     txt = urllib.parse.quote(text.replace('--', ''))
     share_url = f"tg://share?url={txt}File%20Link%20👉%20{url}"
     # save uploader info to dB with encoded base string
-    await add_updata(base64_string,uploader_data)
+    await add_updata(str(base64_string),str(uploader_data))
 
     # making buttons
     buttons = [[
