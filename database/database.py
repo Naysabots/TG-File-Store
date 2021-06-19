@@ -59,7 +59,7 @@ async def get_data(id):
 class CDatabase(BASE):
     # for storing decoded id, Uploader data !!
     __tablename__ = "cdatabase"
-    msg_cal = Column(String)
+    msg_cal = Column(String,primary_key=True)
     msg_updata = Column(String)
 
     def __init__(self, msg_cal,msg_updata):
