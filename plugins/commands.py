@@ -11,6 +11,7 @@ import base64
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import ListenerCanceled
+from database.database import *
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
@@ -161,6 +162,18 @@ async def batch(c, m):
     url = f"https://t.me/{bot.username}?start={base64_string}"
 
     await message.edit(text=url)
+
+
+@Client.on_message(filters.command('mode') & filters.incoming & filters.private)
+async def set_mode(c,m):
+    caption_mode = (await get_data(m.from_user.id)).up_name
+    if caption_mode:
+       await update_as_name(m.from_user.id, False)
+       text = "Uploader Details in Caption: **Disabled ❌**"
+    else:
+       await update_as_name(m.from_user.id, True)
+       text = "Uploader Details in Caption: **Enabled ✔️**"
+    await m.reply_text(text, quote=True)
 
 
 async def decode(base64_string):
