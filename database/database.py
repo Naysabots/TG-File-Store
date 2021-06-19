@@ -57,7 +57,7 @@ async def get_data(id):
 
 
 class CDatabase(BASE):
-    # for storing decoded id, Uploader data !!
+    # for storing encoded id, Uploader data !!
     __tablename__ = "cdatabase"
     msg_cal = Column(String,primary_key=True)
     msg_updata = Column(String)
@@ -81,6 +81,6 @@ async def get_updata(msg_cal):
            return ""
        return user_updata.msg_updata
        # direct gib that uploaders details !!
-       
+    
     finally:
        SESSION.close()
