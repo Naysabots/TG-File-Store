@@ -90,8 +90,7 @@ async def start(c, m, cb=False):
         as_uploadername = (await get_data(chat_id)).up_name
         
         if as_uploadername:
-           uploader_details = await get_updata(str(m.command[1])) # trying to get Uploader details with encodedbase
-           caption = f"{uploader_details}\n{caption}"
+           caption = f"Uploaded by {owner.mention(style='md')}\n{caption}"
         await send_msg.delete()
         await msg.copy(m.from_user.id, caption=caption)
 
