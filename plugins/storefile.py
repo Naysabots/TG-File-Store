@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 from plugins.database.adduser import add_user_to_database
-
+from config import *
 #################################### FOR PRIVATE ################################################
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
