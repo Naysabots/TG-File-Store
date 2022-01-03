@@ -201,6 +201,4 @@ async def encode_string(string):
     base64_bytes = base64.b64encode(string_bytes)
     base64_string = base64_bytes.decode("ascii")
     return base64_string
-@Client.on_message(filters.private)
-async def _(bot: Client, c: m):
-    await handle_user_status(bot, cmd)
+
