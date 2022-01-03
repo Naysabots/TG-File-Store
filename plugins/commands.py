@@ -23,9 +23,7 @@ async def start(c, m, cb=False):
 
     owner = await c.get_users(int(OWNER_ID))
     owner_username = owner.username if owner.username else 'Ns_bot_updates'
-    if cmd.from_user.id in BANNED_USERS:
-        await cmd.reply_text("Sorry, You are banned.")
-        return
+
     usr_cmd = cmd.text.split("_")[-1]
     if usr_cmd == "/start":
         chat_id = cmd.from_user.id
@@ -109,9 +107,7 @@ async def start(c, m, cb=False):
 
 @Client.on_message(filters.command('me') & filters.incoming & filters.private)
 async def me(c, m):
-    if cmd.from_user.id in BANNED_USERS:
-        await cmd.reply_text("Sorry, You are banned.")
-        return
+
     usr_cmd = cmd.text.split("_")[-1]
     if usr_cmd == "/me":
         chat_id = cmd.from_user.id
@@ -139,9 +135,7 @@ async def me(c, m):
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
-    if cmd.from_user.id in BANNED_USERS:
-        await cmd.reply_text("Sorry, You are banned.")
-        return
+
     usr_cmd = cmd.text.split("_")[-1]
     if usr_cmd == "/batch":
         chat_id = cmd.from_user.id
@@ -208,5 +202,5 @@ async def encode_string(string):
     base64_string = base64_bytes.decode("ascii")
     return base64_string
 @Client.on_message(filters.private)
-async def _(bot: Client, cmd: Message):
+async def _(bot: Client, c: m):
     await handle_user_status(bot, cmd)
