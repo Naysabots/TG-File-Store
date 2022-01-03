@@ -24,14 +24,14 @@ async def start(c, m, cb=False):
     owner = await c.get_users(int(OWNER_ID))
     owner_username = owner.username if owner.username else 'Ns_bot_updates'
 
-    usr_cmd = cmd.text.split("_")[-1]
+    usr_cmd = m.text.split("_")[-1]
     if usr_cmd == "/start":
-        chat_id = cmd.from_user.id
+        chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
             await bot.send_message(
                 LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
+                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
             )
     # start text
     text = f"""Hey! {m.from_user.mention(style='md')}
@@ -108,14 +108,14 @@ async def start(c, m, cb=False):
 @Client.on_message(filters.command('me') & filters.incoming & filters.private)
 async def me(c, m):
 
-    usr_cmd = cmd.text.split("_")[-1]
+    usr_cmd = m.text.split("_")[-1]
     if usr_cmd == "/me":
-        chat_id = cmd.from_user.id
+        chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
             await bot.send_message(
                 LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
+                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
             )
     """ This will be sent when /me command was used"""
 
@@ -136,14 +136,14 @@ async def me(c, m):
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
 
-    usr_cmd = cmd.text.split("_")[-1]
+    usr_cmd = m.text.split("_")[-1]
     if usr_cmd == "/batch":
-        chat_id = cmd.from_user.id
+        chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
             await bot.send_message(
                 LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
+                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
             )
     """ This is for batch command"""
 
