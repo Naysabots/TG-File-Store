@@ -2,7 +2,7 @@
 
 import datetime
 from config import *
-from plugins.database import Database
+from plugins.database.database import Database
 
 db = Database(MONGODB_URL, BOT_USERNAME)
 
