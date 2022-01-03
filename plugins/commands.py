@@ -3,7 +3,7 @@ import asyncio
 import logging
 import logging.config
 from plugins.database.database import Database
-# Get logging configurations
+from pyrogram.types import Message
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from config import *
