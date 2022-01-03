@@ -2,7 +2,7 @@ from plugins.database.adduser import present_in_userbase, add_user_to_database, 
 import time
 from pyrogram import Client as tellybots
 from config import *
-
+from pyrogram import filters
 @tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID) & filters.reply)
 async def broadcast(client: tellybots, message: Message):
        broadcast_msg = message.reply_to_message
