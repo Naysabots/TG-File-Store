@@ -23,7 +23,7 @@ async def start(c, m, cb=False):
 
     owner = await c.get_users(int(OWNER_ID))
     owner_username = owner.username if owner.username else 'Ns_bot_updates'
-    await add_user_to_database(c, m)
+    await add_user_to_database(c)
     # start text
     text = f"""Hey! {m.from_user.mention(style='md')}
 
@@ -98,7 +98,7 @@ async def start(c, m, cb=False):
 
 @Client.on_message(filters.command('me') & filters.incoming & filters.private)
 async def me(c, m):
-    await add_user_to_database(c, m)
+    await add_user_to_database(c)
     """ This will be sent when /me command was used"""
 
     me = await c.get_users(m.from_user.id)
@@ -117,7 +117,7 @@ async def me(c, m):
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
-    await add_user_to_database(c, m)
+    await add_user_to_database(c)
     """ This is for batch command"""
 
     BATCH.append(m.from_user.id)
