@@ -11,3 +11,6 @@ AUTH_USERS = list(int(i) for i in os.environ.get("AUTH_USERS", "").split(" ")) i
 if OWNER_ID not in AUTH_USERS:
     AUTH_USERS.append(OWNER_ID)
 
+MONGODB_URL = os.environ.get("MONGODB_URL", "")
+LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-100"))
+BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", "False"))
