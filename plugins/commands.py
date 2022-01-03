@@ -2,7 +2,7 @@ import os
 import asyncio
 import logging
 import logging.config
-
+from plugins.database.adduser import add_user_to_database
 # Get logging configurations
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -27,12 +27,12 @@ async def start(c, m, cb=False):
     # start text
     text = f"""Hey! {m.from_user.mention(style='md')}
 
-💡 ** I am Telegram File Store Bot**
+** I am Telegram File Store Bot**
 
 `You can store your Telegram Media for permanent Link!`
 
 
-**👲 Maintained By:** {owner.mention(style='md')}
+**👲 Maintained By** @Tellybots_4u
 """
 
     # Buttons
