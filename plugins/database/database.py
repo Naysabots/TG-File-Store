@@ -3,6 +3,7 @@ import time
 from pyrogram import Client as tellybots
 from config import *
 from pyrogram import filters
+from pyrogram.types import Message
 @tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID) & filters.reply)
 async def broadcast(client: tellybots, message: Message):
        broadcast_msg = message.reply_to_message
