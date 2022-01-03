@@ -6,7 +6,7 @@ from plugins.database.adduser import add_user_to_database
 # Get logging configurations
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
+from config import *
 import base64
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
