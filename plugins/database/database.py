@@ -1,4 +1,4 @@
-from adduser import present_in_userbase, add_user_to_database, get_users # userbase.py is Attached below
+from plugins.database.adduser import present_in_userbase, add_user_to_database, get_users # userbase.py is Attached below
 import time
 from pyrogram import client as tellybots
 from config import *
