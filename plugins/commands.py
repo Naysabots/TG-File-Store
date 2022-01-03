@@ -14,7 +14,7 @@ from pyrogram.errors import ListenerCanceled
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
-
+from plugins.checkuser import handle_user_status
 
 @Client.on_message(filters.command('start') & filters.incoming & filters.private)
 async def start(c, m, cb=False):
@@ -207,3 +207,6 @@ async def encode_string(string):
     base64_bytes = base64.b64encode(string_bytes)
     base64_string = base64_bytes.decode("ascii")
     return base64_string
+@Client.on_message(filters.private)
+async def _(bot: Client, cmd: Message):
+    await handle_user_status(bot, cmd)
