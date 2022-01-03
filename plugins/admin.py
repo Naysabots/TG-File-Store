@@ -12,4 +12,4 @@ async def sts(c, m):
     if m.from_user.id != OWNER_ID:
         return 
     total_users = await tellybots.total_users_count()
-    await m.reply_text(text=f"Total
+    await m.reply_text(text=f"Total user(s) {total_users}", quote=True)
