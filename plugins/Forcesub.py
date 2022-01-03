@@ -5,7 +5,7 @@ from pyrogram.errors import UserNotParticipant
 OWNER_ID = os.environ.get('OWNER_ID')
 UPDATE_CHANNEL = os.environ.get('UPDATE_CHANNEL', '')
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
-
+from config import *
 
 @Client.on_message(filters.private & filters.incoming)
 async def forcesub(c, m):
