@@ -23,7 +23,7 @@ async def sts(_, m: Message):
 
 
 @Bot.on_message(filters.private & filters.command("ban") & filters.user(OWNER_ID))
-async def ban(c: Client, m: Message):
+async def ban(c: Bot, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
             f"Use this command to ban any user from the bot.\n\nUsage:\n\n`/ban user_id ban_duration ban_reason`\n\nEg: `/ban_user 1234567 28 You misused me.`\n This will ban user with id `1234567` for `28` days for the reason `You misused me`.",
@@ -59,7 +59,7 @@ async def ban(c: Client, m: Message):
 
 
 @Bot.on_message(filters.private & filters.command("unban") & filters.user(OWNER_ID))
-async def unban(c: Client, m: Message):
+async def unban(c: Bot, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
             f"Use this command to unban any user.\n\nUsage:\n\n`/unban user_id`\n\nEg: `/unban 1234567`\n This will unban user with id `1234567`.",
