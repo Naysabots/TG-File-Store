@@ -1,9 +1,10 @@
-from userbase import present_in_userbase, add, get_users # userbase.py is Attached below
+from adduser import present_in_userbase, add_user_to_database, get_users # userbase.py is Attached below
 import time
-from pyrogram import client as Tellybots
+from pyrogram import client as tellybots
+from config import *
 
-@Tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER) & filters.reply)
-async def broadcast(client: bughunter0, message: Message):
+@tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID) & filters.reply)
+async def broadcast(client: tellybots, message: Message):
        broadcast_msg = message.reply_to_message
        txt = await message.reply(text = 'Staring....')        
        user_ids = await get_users()
