@@ -8,7 +8,7 @@ from pyrogram.types import (
     Message
 )
 from config import *
-from bot.client import Client
+from pyrogram import Client
 from plugins.database.database import db
 from plugins.storefile import humanbytes
 from plugins.broadcast import broadcast_handler
