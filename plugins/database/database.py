@@ -1,6 +1,6 @@
 from plugins.database.adduser import present_in_userbase, add_user_to_database, get_users # userbase.py is Attached below
 import time
-from pyrogram import client as tellybots
+from pyrogram import Client as tellybots
 from config import *
 
 @tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID) & filters.reply)
