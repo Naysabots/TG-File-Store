@@ -2,7 +2,7 @@
 # (c) @AbirHasan2005 | X-Noid
 
 import traceback, datetime, asyncio, string, random, time, os, aiofiles, aiofiles.os
-from database.access import tellybots
+from .database.access import tellybots
 from pyrogram import filters
 from pyrogram import Client as Tellybots
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
