@@ -7,10 +7,10 @@ from pyrogram import filters
 from pyrogram.types import (
     Message
 )
-from configs import Config
+from config import *
 from bot.client import Client
 from plugins.database.database import db
-from  import humanbytes
+from plugins.storefile import humanbytes
 from plugins.broadcast import broadcast_handler
 
 
