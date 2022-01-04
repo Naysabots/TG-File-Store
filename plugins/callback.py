@@ -16,9 +16,9 @@ OWNER_ID = os.environ.get("OWNER_ID")
 @Client.on_callback_query(filters.regex('^homes$'))
 async def homes_cb(c, m):
     await m.answer()
- chat = m.from_user.mention
+
     # help text
-    help_text = """Hey! {chat(style='md')}
+    help_text = """Hey! User
 
 ** I am Telegram File Store Bot**
 
