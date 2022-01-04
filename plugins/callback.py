@@ -18,15 +18,13 @@ async def homes_cb(c, m):
     await m.answer()
 
     # help text
-    help_text = """Hey! User
+    help_text = """Hey User
 
 ** I am Telegram File Store Bot**
 
 `You can store your Telegram Media for permanent Link!`
 
-`No Channel Forcesub Added.`
-
-**👲 Maintained By** @DKBOTZ
+**👲 Maintained By** @Tellybots_4u
 """
 
     # creating buttons
@@ -101,9 +99,7 @@ async def about_cb(c, m):
 
 👨‍💻 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫: {owner.mention(style='md')}
 
-📢 𝐂𝐡𝐚𝐧𝐧𝐞𝐥: [DK BOTZ UPDATES](https://t.me/DKBOTZ)
-
-👥 𝐆𝐫𝐨𝐮𝐩: [DK BOTZ SUPPORT](https://t.me/DK_BOT)
+📢 𝐂𝐡𝐚𝐧𝐧𝐞𝐥: [Tellybots](https://t.me/tellybots_4u)
 
 """
 
