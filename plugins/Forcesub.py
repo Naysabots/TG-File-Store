@@ -3,16 +3,16 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserNotParticipant
 OWNER_ID = os.environ.get('OWNER_ID')
-UPDATE_CHANNEL = os.environ.get('UPDATE_CHANNEL', '')
+UPDATES_CHANNEL = os.environ.get('UPDATES_CHANNEL', '')
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 from config import *
 
 @Client.on_message(filters.private & filters.incoming)
 async def forcesub(c, m):
     owner = await c.get_users(int(OWNER_ID))
-    if UPDATE_CHANNEL:
+    if UPDATES_CHANNEL:
         try:
-            user = await c.get_chat_member(UPDATE_CHANNEL, m.from_user.id)
+            user = await c.get_chat_member(UPDATES_CHANNEL, m.from_user.id)
             if user.status == "kicked":
                await m.reply_text("**Hey you are banned 😜**", quote=True)
                return
