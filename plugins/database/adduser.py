@@ -2,7 +2,7 @@ from config import *
 import pymongo
 from pymongo import MongoClient
 
-dbclient = pymongo.MongoClient(MONGODB_URL)
+dbclient = pymongo.MongoClient(("mongodb+srv://Watermarks:786@cluster0.v1ah9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 database = dbclient["Name"]
 
 user_collection = database['users']
