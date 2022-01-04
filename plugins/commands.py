@@ -2,7 +2,7 @@ import os
 import asyncio
 import logging
 import logging.config
-from plugins.database.database import *
+from plugins.database.adduser import *
 # Get logging configurations
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
