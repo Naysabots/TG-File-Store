@@ -30,7 +30,7 @@ async def start(c, m, cb=False):
         chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
-            await m.send_message(
+            await m.send_msg(
                 LOG_CHANNEL,
                 f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
             )
