@@ -38,7 +38,7 @@ async def start(bot: Client, cmd: Message, cb=False):
     owner_username = owner.username if owner.username else 'Ns_bot_updates'
 
     
-    text = f"""Hey! {m.from_user.mention(style='md')}
+    text = f"""Hey! {cmd.from_user.mention(style='md')}
 
 ** I am Telegram File Store Bot**
 
