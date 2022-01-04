@@ -6,9 +6,10 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import *
 from pyrogram.types import Message, User
 #################################### FOR PRIVATE ################################################
-@Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
+@Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel & ~filters.forwarded)
 async def storefile(c, m):
-    
+
+    await message.delete()    
     send_message = await m.reply_text("**Processing...**", quote=True)
     media = m.document or m.video or m.audio or m.photo
     # text
@@ -59,7 +60,7 @@ async def storefile(c, m):
 
 #################################### FOR CHANNEL################################################
 
-@Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.forwarded & ~filters.edited)
+@Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.forwarded & ~filters.edited & ~filters.forwarded)
 async def storefile_channel(c, m):
     
     media = m.document or m.video or m.audio or m.photo
