@@ -15,9 +15,10 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
 
-
 @Client.on_message(filters.command('start') & filters.incoming & filters.private)
 async def start(c, m, cb=False):
+    if not await present_in_userbase(m.from_user.id):
+             await add_to_userbase(m.from_user.id)
     if not cb:
         send_msg = await m.reply_text("**Processing...**", quote=True)
 
