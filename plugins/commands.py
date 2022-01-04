@@ -65,7 +65,7 @@ async def start(bot: Client, cmd: Message, cb=False):
 
     # when button home is pressed
     if cb:
-        return await m.message.edit(
+        return await cmd.message.edit(
                    text=text,
                    reply_markup=InlineKeyboardMarkup(buttons)
                )
