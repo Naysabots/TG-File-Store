@@ -62,7 +62,7 @@ async def storefile(c, m):
 
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.forwarded & ~filters.edited & ~filters.forwarded)
 async def storefile_channel(c, m):
-    
+    await message.delete()
     media = m.document or m.video or m.audio or m.photo
 
     # text
