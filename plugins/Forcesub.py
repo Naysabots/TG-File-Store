@@ -1,42 +1,81 @@
 import os
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.errors import UserNotParticipant
 OWNER_ID = os.environ.get('OWNER_ID')
 UPDATES_CHANNEL = os.environ.get('UPDATES_CHANNEL', '')
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 from config import *
+# (c) @AbirHasan2005
 
-@Client.on_message(filters.private & filters.incoming)
-async def forcesub(c, m):
-    owner = await c.get_users(int(OWNER_ID))
-    if UPDATES_CHANNEL:
-        try:
-            user = await c.get_chat_member(UPDATES_CHANNEL, m.from_user.id)
-            if user.status == "kicked":
-               await m.reply_text("**Hey you are banned 😜**", quote=True)
-               return
-        except UserNotParticipant:
-            buttons = [[InlineKeyboardButton(text='Updates Channel 🔖', url=f"https://t.me/{UPDATE_CHANNEL}")]]
-            if m.text:
-                if (len(m.text.split(' ')) > 1) & ('start' in m.text):
-                    chat_id, msg_id = m.text.split(' ')[1].split('_')
-                    buttons.append([InlineKeyboardButton('🔄 Refresh', callback_data=f'refresh+{chat_id}+{msg_id}')])
-            await m.reply_text(
-                f"Hey {m.from_user.mention(style='md')} you need join My updates channel in order to use me 😉\n\n"
-                "__Press the Following Button to join Now 👇__",
-                reply_markup=InlineKeyboardMarkup(buttons),
-                quote=True
+import asyncio
+from typing import union
+from pyrogram.errors import FloodWait, UserNotParticipant
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
+
+
+async def get_invite_link(bot: Client, chat_id: Union[str, int]):
+    try:
+        invite_link = await bot.create_chat_invite_link(chat_id=chat_id)
+        return invite_link
+    except FloodWait as e:
+        print(f"Sleep of {e.x}s caused by FloodWait ...")
+        await asyncio.sleep(e.x)
+        return await get_invite_link(bot, chat_id)
+
+
+async def handle_force_sub(bot: Client, cmd: Message):
+    if UPDATES_CHANNEL and UPDATES_CHANNEL.startswith("-100"):
+        channel_chat_id = int(UPDATES_CHANNEL)
+    elif UPDATES_CHANNEL and (not UPDATES_CHANNEL.startswith("-100")):
+        channel_chat_id = Config.UPDATES_CHANNEL
+    else:
+        return 200
+    try:
+        user = await bot.get_chat_member(chat_id=channel_chat_id, user_id=cmd.from_user.id)
+        if user.status == "kicked":
+            await bot.send_message(
+                chat_id=cmd.from_user.id,
+                text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/JoinOT).",
+                parse_mode="markdown",
+                disable_web_page_preview=True
             )
-            return
-        except Exception as e:
-            print(e)
-            await m.reply_text(f"Something Wrong. Please try again later or contact {owner.mention(style='md')}", quote=True)
-            return
-    await m.continue_propagation()
+            return 400
+    except UserNotParticipant:
+        try:
+            invite_link = await get_invite_link(bot, chat_id=channel_chat_id)
+        except Exception as err:
+            print(f"Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}")
+            return 200
+        await bot.send_message(
+            chat_id=cmd.from_user.id,
+            text="**Please Join My Updates Channel to use this Bot!**\n\n"
+                 "Due to Overload, Only Channel Subscribers can use the Bot!",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
+                    ],
+                    [
+                        InlineKeyboardButton("🔄 Refresh 🔄", callback_data="refreshForceSub")
+                    ]
+                ]
+            ),
+            parse_mode="markdown"
+        )
+        return 400
+    except Exception:
+        await bot.send_message(
+            chat_id=cmd.from_user.id,
+            text="Something went Wrong. Contact my [Support Group](https://t.me/JoinOT).",
+            parse_mode="markdown",
+            disable_web_page_preview=True
+        )
+        return 200
+    return 200
 
 
-@Client.on_callback_query(filters.regex('^refresh'))
+
+
+@Client.on_callback_query(filters.regex('refreshForceSub'))
 async def refresh_cb(c, m):
     owner = await c.get_users(int(OWNER_ID))
     if UPDATE_CHANNEL:
