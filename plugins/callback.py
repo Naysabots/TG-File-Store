@@ -20,7 +20,7 @@ async def homes_cb(c, m):
     # help text
     help_text = """Hey {m.from_user.mention(style='md')}
 
-** I am Telegram File Store Bot**
+**I am Telegram File Store Bot**
 
 `You can store your Telegram Media for permanent Link!`
 
