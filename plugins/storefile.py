@@ -9,14 +9,6 @@ from config import *
 #################################### FOR PRIVATE ################################################
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
-    if m.chat.type == "private":
-        chat_id = message.from_user.id
-        if not await db.is_user_exist(chat_id):
-            await db.add_user(chat_id)
-            await c.send_message(
-                LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!"
-            )
     send_message = await m.reply_text("**Processing...**", quote=True)
     if m.document:
        media = m.document
@@ -77,14 +69,7 @@ async def storefile(c, m):
 
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.edited)
 async def storefile_channel(c, m):
-    if message.chat.type == "private":
-        chat_id = message.from_user.id
-        if not await db.is_user_exist(chat_id):
-            await db.add_user(chat_id)
-            await bot.send_message(
-                LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!"
-            )
+
     if m.document:
        media = m.document
     if m.video:
