@@ -14,7 +14,7 @@ from pyrogram.errors import ListenerCanceled
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
-from plugins.ForceSub import (
+from plugins.Forcesub import (
     handle_force_sub,
     get_invite_link
 )
