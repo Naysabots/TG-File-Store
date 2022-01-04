@@ -29,14 +29,12 @@ async def homes_cb(c, m):
 
     # creating buttons
     buttons = [
-        [
-            InlineKeyboardButton('My Father 👨‍✈️', url=f"https://t.me/DKBOTZHELP"),
-            InlineKeyboardButton('Help 💡', callback_data="help")
-        ],
-        [
-            InlineKeyboardButton('About 📕', callback_data="about")
-        ]
-    ]
+                 [InlineKeyboardButton("Channel", url="https://t.me/Tellybots"),
+                  InlineKeyboardButton("Support", url="https://t.me/Tellybots_support")],
+                 [InlineKeyboardButton("Help", callback_data="help"),
+                  InlineKeyboardButton("About", callback_data="about")],
+                 [InlineKeyboardButton("🔐 Close", callback_data="close")]
+                ]
 
     # editing as help message
     await m.message.edit(
