@@ -20,6 +20,10 @@ from plugins.Forcesub import (
 )
 
 from plugins.database.adduser import add_user_to_database
+@Client.on_message(filters.private & filters.command(["start"]))
+async def help_user(bot, cmd):
+    # logger.info(update)
+    await AddUser(bot, cmd)
 
     if not cb:
         send_msg = await cmd.reply_text("**Processing...**", quote=True)
