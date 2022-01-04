@@ -4,6 +4,7 @@ import traceback
 from pyrogram import filters
 from pyrogram.errors import UserNotParticipant
 from pyrogram.errors import FloodWait
+from plugins.database.access_db import db
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from config import *
 from plugins.checkuser import handle_user_status
