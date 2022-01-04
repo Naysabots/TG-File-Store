@@ -8,7 +8,9 @@ from config import *
 #################################### FOR PRIVATE ################################################
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
- 
+    chat_id = message.chat.id
+    forward_msg = await message.copy(chat_id)
+    await message.delete() 
     send_message = await m.reply_text("**Processing...**", quote=True)
     media = m.document or m.video or m.audio or m.photo
     # text
@@ -61,7 +63,9 @@ async def storefile(c, m):
 
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.forwarded & ~filters.edited)
 async def storefile_channel(c, m):
-   
+    chat_id = message.chat.id
+    forward_msg = await message.copy(chat_id)
+    await message.delete()
     media = m.document or m.video or m.audio or m.photo
 
     # text
