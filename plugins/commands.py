@@ -114,7 +114,7 @@ async def me(c, m):
         chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
-            await m.send_message(
+            await c.send_message(
                 LOG_CHANNEL,
                 f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
             )
@@ -142,7 +142,7 @@ async def batch(c, m):
         chat_id = m.from_user.id
         if not await db.is_user_exist(chat_id):
             await db.add_user(chat_id)
-            await m.send_message(
+            await c.send_message(
                 LOG_CHANNEL,
                 f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
             )
