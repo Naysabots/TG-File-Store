@@ -41,7 +41,7 @@ async def start(c, m, cb=False):
 
 `You can store your Telegram Media for permanent Link!`
 
-No Channel Forcesub Added. This Bot For Free To Use
+`No Channel Forcesub Added.`
 
 **👲 Maintained By** @DKBOTZ
 """
