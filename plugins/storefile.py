@@ -8,9 +8,9 @@ from pyrogram.types import Message, User
 #################################### FOR PRIVATE ################################################
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
-    chat_id = message.chat.id
-    forward_msg = await message.copy(chat_id)
-    await message.delete() 
+    chat_id = m.chat.id
+    forward_msg = await m.copy(chat_id)
+    await m.delete() 
     send_message = await m.reply_text("**Processing...**", quote=True)
     media = m.document or m.video or m.audio or m.photo
     # text
@@ -63,9 +63,9 @@ async def storefile(c, m):
 
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & filters.channel & ~filters.forwarded & ~filters.edited)
 async def storefile_channel(c, m):
-    chat_id = message.chat.id
-    forward_msg = await message.copy(chat_id)
-    await message.delete()
+    chat_id = m.chat.id
+    forward_msg = await m.copy(chat_id)
+    await m.delete()
     media = m.document or m.video or m.audio or m.photo
 
     # text
