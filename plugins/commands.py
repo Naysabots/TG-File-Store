@@ -113,15 +113,7 @@ async def start(bot: Client, cmd: Message):
 @Client.on_message(filters.command('me') & filters.incoming & filters.private)
 async def me(c, m):
 
-    usr_cmd = m.text.split("_")[-1]
-    if usr_cmd == "/me":
-        chat_id = m.from_user.id
-        if not await db.is_user_exist(chat_id):
-            await db.add_user(chat_id)
-            await c.send_message(
-                LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
-            )
+
     """ This will be sent when /me command was used"""
 
     me = await c.get_users(m.from_user.id)
@@ -141,15 +133,7 @@ async def me(c, m):
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
 
-    usr_cmd = m.text.split("_")[-1]
-    if usr_cmd == "/batch":
-        chat_id = m.from_user.id
-        if not await db.is_user_exist(chat_id):
-            await db.add_user(chat_id)
-            await c.send_message(
-                LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
-            )
+    
     """ This is for batch command"""
 
     BATCH.append(m.from_user.id)
