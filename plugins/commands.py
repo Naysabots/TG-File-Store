@@ -14,7 +14,10 @@ from pyrogram.errors import ListenerCanceled
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
-
+from plugins.ForceSub import (
+    handle_force_sub,
+    get_invite_link
+)
 
 from plugins.database.adduser import add_user_to_database
 @Client.on_message(filters.command("start") & filters.private)
