@@ -28,7 +28,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
     if UPDATES_CHANNEL and UPDATES_CHANNEL.startswith("-100"):
         channel_chat_id = int(UPDATES_CHANNEL)
     elif UPDATES_CHANNEL and (not UPDATES_CHANNEL.startswith("-100")):
-        channel_chat_id = Config.UPDATES_CHANNEL
+        channel_chat_id = UPDATES_CHANNEL
     else:
         return 200
     try:
@@ -45,7 +45,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
         try:
             invite_link = await get_invite_link(bot, chat_id=channel_chat_id)
         except Exception as err:
-            print(f"Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}")
+            print(f"Unable to do Force Subscribe to {UPDATES_CHANNEL}\n\nError: {err}")
             return 200
         await bot.send_message(
             chat_id=cmd.from_user.id,
