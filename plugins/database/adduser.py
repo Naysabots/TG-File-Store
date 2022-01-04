@@ -1,8 +1,8 @@
-from config import *
+#setting up db using pymongo
 import pymongo
 from pymongo import MongoClient
 
-dbclient = pymongo.MongoClient(("mongodb+srv://Watermarks:786@cluster0.v1ah9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+dbclient = pymongo.MongoClient("mongodb+srv:// Paste it or By Env")
 database = dbclient["Name"]
 
 user_collection = database['users']
