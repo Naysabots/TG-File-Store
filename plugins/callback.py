@@ -18,7 +18,7 @@ async def homes_cb(c, m):
     await m.answer()
 
     # help text
-    help_text = """Hey {m.from_user.mention(style='md')}
+    help_text = """Hey User
 
 **I am Telegram File Store Bot**
 
