@@ -32,7 +32,7 @@ async def start(c, m, cb=False):
             await db.add_user(chat_id)
             await c.send_message(
                 LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
+                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
             )
     # start text
     text = f"""Hey! {m.from_user.mention(style='md')}
@@ -116,7 +116,7 @@ async def me(c, m):
             await db.add_user(chat_id)
             await c.send_message(
                 LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{BOT_USERNAME} !!"
+                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
             )
     """ This will be sent when /me command was used"""
 
