@@ -14,16 +14,13 @@ from pyrogram.errors import ListenerCanceled
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
-from plugins.Forcesub import (
-    handle_force_sub,
-    get_invite_link
-)
+
 
 from plugins.database.adduser import add_user_to_database
 @Client.on_message(filters.private & filters.command(["start"]))
 async def help_user(bot, cmd, cb=false):
     # logger.info(update)
-    await AddUser(bot, cmd)
+    await add_user_to_database(bot, cmd)
 
     if not cb:
         send_msg = await cmd.reply_text("**Processing...**", quote=True)
