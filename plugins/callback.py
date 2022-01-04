@@ -6,7 +6,7 @@ import logging.config
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from config import *
-from .commands import start, BATCH
+from .commands import BATCH
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
