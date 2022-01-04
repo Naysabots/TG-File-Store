@@ -6,7 +6,7 @@ from plugins.database.adduser import present_in_userbase, add_to_userbase, get_u
 import time
 
 @Tellybots.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID) & filters.reply)
-async def broadcast(client: c, message: m):
+async def broadcast(client: Tellybots, message: m):
        broadcast_msg = m.reply_to_message
        txt = await m.reply(text = 'Staring....')        
        user_ids = await get_users()
