@@ -17,8 +17,9 @@ BATCH = []
 
 
 from plugins.database.adduser import add_user_to_database
-@Client.on_message(filters.private & filters.command('start'))
+@Client.on_message(filters.command('start') & filters.incoming & filters.private)
 async def start(bot, cmd, cb=False):
+    if not cb:
     await add_user_to_database(bot, cmd)
 
     if not cb:
