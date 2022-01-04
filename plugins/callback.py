@@ -29,7 +29,7 @@ async def homes_cb(c, m):
     # creating buttons
     buttons = [
         [
-            InlineKeyboardButton('My Father 👨‍✈️', url=f"https://t.me/{owner_username}"),
+            InlineKeyboardButton('My Father 👨‍✈️', url=f"https://t.me/DKBOTZHELP"),
             InlineKeyboardButton('Help 💡', callback_data="help")
         ],
         [
@@ -98,9 +98,9 @@ async def about_cb(c, m):
 
 👨‍💻 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫: {owner.mention(style='md')}
 
-📢 𝐂𝐡𝐚𝐧𝐧𝐞𝐥: [NS BOT UPDATES](https://t.me/DKBOTZ)
+📢 𝐂𝐡𝐚𝐧𝐧𝐞𝐥: [DK BOTZ UPDATES](https://t.me/DKBOTZ)
 
-👥 𝐆𝐫𝐨𝐮𝐩: [Ns BOT SUPPORT](https://t.me/DK_BOT)
+👥 𝐆𝐫𝐨𝐮𝐩: [DK BOTZ SUPPORT](https://t.me/DK_BOT)
 
 """
 
