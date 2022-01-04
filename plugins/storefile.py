@@ -4,7 +4,7 @@ from .commands import encode_string
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import *
-
+from pyrogram.types import Message, User
 #################################### FOR PRIVATE ################################################
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited & ~filters.channel)
 async def storefile(c, m):
