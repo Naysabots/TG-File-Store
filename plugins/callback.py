@@ -13,6 +13,37 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 
 
+@Client.on_callback_query(filters.regex('^homes$'))
+async def homes_cb(c, m):
+    await m.answer()
+
+    # help text
+    help_text = """Hey! {m.from_user.mention(style='md')}
+
+** I am Telegram File Store Bot**
+
+`You can store your Telegram Media for permanent Link!`
+
+`No Channel Forcesub Added.`"""
+
+    # creating buttons
+    buttons = [
+        [
+            InlineKeyboardButton('My Father 👨‍✈️', url=f"https://t.me/{owner_username}"),
+            InlineKeyboardButton('Help 💡', callback_data="help")
+        ],
+        [
+            InlineKeyboardButton('About 📕', callback_data="about")
+        ]
+    ]
+
+    # editing as help message
+    await m.message.edit(
+        text=help_text,
+        reply_markup=InlineKeyboardMarkup(buttons)
+    )
+
+
 @Client.on_callback_query(filters.regex('^help$'))
 async def help_cb(c, m):
     await m.answer()
@@ -30,7 +61,7 @@ async def help_cb(c, m):
     # creating buttons
     buttons = [
         [
-            InlineKeyboardButton('Home 🏕', callback_data='home'),
+            InlineKeyboardButton('Home 🏕', callback_data='homes'),
             InlineKeyboardButton('About 📕', callback_data='about')
         ],
         [
@@ -43,7 +74,6 @@ async def help_cb(c, m):
         text=help_text,
         reply_markup=InlineKeyboardMarkup(buttons)
     )
-
 
 @Client.on_callback_query(filters.regex('^close$'))
 async def close_cb(c, m):
