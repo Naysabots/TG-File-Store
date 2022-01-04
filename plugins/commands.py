@@ -18,7 +18,7 @@ from plugins.checkuser import handle_user_status
 from plugins database.database import db
 from plugins.database.adduser import add_user_to_database
 @Client.on_message(filters.command("start") & filters.private)
-async def start(bot: Client, cmd: Message):
+async def start(bot: Client, cmd: Message, cb=False):
 
     if cmd.from_user.id in BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
