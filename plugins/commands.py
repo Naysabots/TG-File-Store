@@ -38,14 +38,12 @@ async def start(c, m, cb=False):
 
     # Buttons
     buttons = [
-        [
-            InlineKeyboardButton('My Father 👨‍✈️', url=f"https://t.me/{owner_username}"),
-            InlineKeyboardButton('Help 💡', callback_data="help")
-        ],
-        [
-            InlineKeyboardButton('About 📕', callback_data="about")
-        ]
-    ]
+                 [InlineKeyboardButton("Channel", url="https://t.me/Tellybots"),
+                  InlineKeyboardButton("Support", url="https://t.me/Tellybots_support")],
+                 [InlineKeyboardButton("Help", callback_data="help"),
+                  InlineKeyboardButton("About", callback_data="about")],
+                 [InlineKeyboardButton("🔐 Close", callback_data="close")]
+                ]
 
     # when button home is pressed
     if cb:
