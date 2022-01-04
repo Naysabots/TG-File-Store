@@ -9,3 +9,5 @@ hachoir
 mutagen
 psutil
 aiofiles
+psycopg2-binary
+sqlalchemy
