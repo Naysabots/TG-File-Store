@@ -20,18 +20,7 @@ from plugins.Forcesub import (
 )
 
 from plugins.database.adduser import add_user_to_database
-@Client.on_message(filters.command("start") & filters.private)
-async def start(bot: Client, cmd: Message, cb=False):
 
-
-    if UPDATES_CHANNEL is not None:
-        back = await handle_force_sub(bot, cmd)
-        if back == 400:
-            return
-    
-    usr_cmd = cmd.text.split("_", 1)[-1]
-    if usr_cmd == "/start":
-        await add_user_to_database(bot, cmd)
     if not cb:
         send_msg = await cmd.reply_text("**Processing...**", quote=True)
 
