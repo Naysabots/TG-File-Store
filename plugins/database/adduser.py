@@ -1,7 +1,7 @@
 # (c) @AbirHasan2005
 
 from configs import Config
-from handlers.database import db
+from plugins.database.database import db
 from pyrogram import Client
 from pyrogram.types import Message
 
