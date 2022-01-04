@@ -7,7 +7,9 @@ from config import *
 # (c) @AbirHasan2005
 
 import asyncio
-from typing import union
+from typing import (
+    Union
+)
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 
