@@ -17,24 +17,27 @@ OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
 from plugins.checkuser import handle_user_status
 
-@Client.on_message(filters.command('start') & filters.incoming & filters.private)
-async def start(c, m, cb=False):
-    if not cb:
-        send_msg = await m.reply_text("**Processing...**", quote=True)
+@Client.on_message(filters.command("start") & filters.private)
+async def start(bot: Client, cmd: Message):
 
-    owner = await c.get_users(int(OWNER_ID))
+    if cmd.from_user.id in BANNED_USERS:
+        await cmd.reply_text("Sorry, You are banned.")
+        return
+    if UPDATES_CHANNEL is not None:
+        back = await handle_force_sub(bot, cmd)
+        if back == 400:
+            return
+    
+    usr_cmd = cmd.text.split("_", 1)[-1]
+    if usr_cmd == "/start":
+        await add_user_to_database(bot, cmd)
+    if not cb:
+        send_msg = await cmd.reply_text("**Processing...**", quote=True)
+
+    owner = await bot.get_users(int(OWNER_ID))
     owner_username = owner.username if owner.username else 'Ns_bot_updates'
 
-    usr_cmd = m.text.split("_")[-1]
-    if usr_cmd == "/start":
-        chat_id = m.from_user.id
-        if not await db.is_user_exist(chat_id):
-            await db.add_user(chat_id)
-            await c.send_message(
-                LOG_CHANNEL,
-                f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{BOT_USERNAME} !!"
-            )
-    # start text
+    
     text = f"""Hey! {m.from_user.mention(style='md')}
 
 ** I am Telegram File Store Bot**
@@ -64,41 +67,41 @@ async def start(c, m, cb=False):
                    reply_markup=InlineKeyboardMarkup(buttons)
                )
 
-    if len(m.command) > 1: # sending the stored file
+    if len(cmd.command) > 1: # sending the stored file
         try:
-            m.command[1] = await decode(m.command[1])
+            cmd.command[1] = await decode(cmd.command[1])
         except:
             pass
 
-        if 'batch_' in m.command[1]:
+        if 'batch_' in cmd.command[1]:
             await send_msg.delete()
-            cmd, chat_id, message = m.command[1].split('_')
-            string = await c.get_messages(int(chat_id), int(message)) if not DB_CHANNEL_ID else await c.get_messages(int(DB_CHANNEL_ID), int(message))
+            cmd, chat_id, message = cmd.command[1].split('_')
+            string = await cmd.get_messages(int(chat_id), int(message)) if not DB_CHANNEL_ID else await bot.get_messages(int(DB_CHANNEL_ID), int(message))
 
             if string.empty:
-                owner = await c.get_users(int(OWNER_ID))
-                return await m.reply_text(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
+                owner = await bot.get_users(int(OWNER_ID))
+                return await cmd.reply_text(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
             message_ids = (await decode(string.text)).split('-')
             for msg_id in message_ids:
-                msg = await c.get_messages(int(chat_id), int(msg_id)) if not DB_CHANNEL_ID else await c.get_messages(int(DB_CHANNEL_ID), int(msg_id))
+                msg = await bot.get_messages(int(chat_id), int(msg_id)) if not DB_CHANNEL_ID else await bot.get_messages(int(DB_CHANNEL_ID), int(msg_id))
 
                 if msg.empty:
-                    owner = await c.get_users(int(OWNER_ID))
-                    return await m.reply_text(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
+                    owner = await bot.get_users(int(OWNER_ID))
+                    return await cmd.reply_text(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
 
                 await msg.copy(m.from_user.id)
                 await asyncio.sleep(0)
             return
 
-        chat_id, msg_id = m.command[1].split('_')
-        msg = await c.get_messages(int(chat_id), int(msg_id)) if not DB_CHANNEL_ID else await c.get_messages(int(DB_CHANNEL_ID), int(msg_id))
+        chat_id, msg_id = cmd.command[1].split('_')
+        msg = await bot.get_messages(int(chat_id), int(msg_id)) if not DB_CHANNEL_ID else await bot.get_messages(int(DB_CHANNEL_ID), int(msg_id))
 
         if msg.empty:
             return await send_msg.edit(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
         
         caption = f"{msg.caption.markdown}" if msg.caption else ""
         await send_msg.delete()
-        await msg.copy(m.from_user.id, caption=caption)
+        await msg.copy(cmd.from_user.id, caption=caption)
 
 
     else: # sending start message
