@@ -2,8 +2,7 @@ import os
 import asyncio
 import logging
 import logging.config
-from plugins.database.access_db import db
-from plugins.database.database import Database
+
 from pyrogram.types import Message
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -16,7 +15,8 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID")
 OWNER_ID = os.environ.get("OWNER_ID")
 BATCH = []
 from plugins.checkuser import handle_user_status
-
+from plugins database.database import db
+from plugins.add_user_to_db import add_user_to_database
 @Client.on_message(filters.command("start") & filters.private)
 async def start(bot: Client, cmd: Message):
 
