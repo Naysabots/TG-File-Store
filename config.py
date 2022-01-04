@@ -14,7 +14,7 @@ if OWNER_ID not in AUTH_USERS:
 MONGODB_URL = os.environ.get("MONGODB_URL", "")
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-100"))
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", "False"))
-SESSION_NAME = os.environ.get("SESSION_NAME", "")
+SESSION_NAME = os.environ.get("BOT_USERNAME", "")
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
