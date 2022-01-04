@@ -16,15 +16,18 @@ OWNER_ID = os.environ.get("OWNER_ID")
 @Client.on_callback_query(filters.regex('^homes$'))
 async def homes_cb(c, m):
     await m.answer()
-
+ chat = [{m.from_user.first_name}](tg://user?id={m.from_user.id})
     # help text
-    help_text = """Hey! {m.from_user.mention(style='md')}
+    help_text = """Hey! {chat(style='md')}
 
 ** I am Telegram File Store Bot**
 
 `You can store your Telegram Media for permanent Link!`
 
-`No Channel Forcesub Added.`"""
+`No Channel Forcesub Added.`
+
+**👲 Maintained By** @DKBOTZ
+"""
 
     # creating buttons
     buttons = [
